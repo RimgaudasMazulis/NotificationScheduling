@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.goal {
+  position: absolute;
+  margin-top: -10px;
+  z-index: 1;
+  height: 40px;
+  width: 40px;
+  border-radius: 25px;
+}
+
+.one {
+  left: 25%;
+}
+
+.two {
+  left: 50%;
+}
+
+.three {
+  left: 75%;
+}
+
+.primary-color {
+  background-color: #4989bd;
+}
+
+.success-color {
+  background-color: #5cb85c;
+}
+
+.danger-color {
+  background-color: #d9534f;
+}
+
+.warning-color {
+  background-color: #f0ad4e;
+}
+
+.info-color {
+  background-color: #5bc0de;
+}
+
+.no-color {
+  background-color: inherit;
+}
