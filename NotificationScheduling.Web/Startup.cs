@@ -69,6 +69,7 @@ namespace NotificationScheduling.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
