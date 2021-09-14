@@ -59,9 +59,9 @@ namespace NotificationScheduling.Infrastructure
 			return await Entities.ToListAsync();
 		}
 
-		public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
+		public async Task<IList<T>> GetAsync(Expression<Func<T, bool>> predicate)
 		{
-			return await Entities.FirstOrDefaultAsync(predicate);
+			return await Entities.Where(predicate).ToListAsync();
 		}
 
 		public T Find(params object[] keyValues)

@@ -46,7 +46,7 @@ namespace NotificationScheduling.Infrastructure
 
             var companies = new Company[]
             {
-                new Company(){ Name = "ExampleCompany", CompanyType = smallCompany, Market = denmarkMarket, CompanyNumber = "0123456789", Id = new Guid("aad7a630-af1c-4952-9cb4-44b8b847853b"), CreatedAt = DateTime.Now }
+                new Company(){ Name = "ExampleCompany", CompanyType = largeCompany, Market = swedenMarket, CompanyNumber = "0123456789", Id = new Guid("aad7a630-af1c-4952-9cb4-44b8b847853b"), CreatedAt = DateTime.Now.AddDays(-10) }
             };
 
             context.Companies.AddRange(companies);

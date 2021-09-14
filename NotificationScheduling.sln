@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationScheduling.WebApi", "NotificationScheduling.WebApi\NotificationScheduling.WebApi.csproj", "{23A5C6F2-30DC-4703-B91F-21C8EDC48B44}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationScheduling.Web", "NotificationScheduling.Web\NotificationScheduling.Web.csproj", "{81257F3E-1E36-44D9-BB70-FA2C057AD634}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationScheduling.Services", "NotificationScheduling.Services\NotificationScheduling.Services.csproj", "{D32B68EC-9B87-47B1-AFCE-F2440D3627FD}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{23A5C6F2-30DC-4703-B91F-21C8EDC48B44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23A5C6F2-30DC-4703-B91F-21C8EDC48B44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23A5C6F2-30DC-4703-B91F-21C8EDC48B44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23A5C6F2-30DC-4703-B91F-21C8EDC48B44}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81257F3E-1E36-44D9-BB70-FA2C057AD634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81257F3E-1E36-44D9-BB70-FA2C057AD634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81257F3E-1E36-44D9-BB70-FA2C057AD634}.Release|Any CPU.ActiveCfg = Release|Any CPU

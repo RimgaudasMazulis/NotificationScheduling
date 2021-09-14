@@ -3,6 +3,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NotificationScheduling.Domain.Entities;
+using NotificationScheduling.Domain.Exceptions;
 using NotificationScheduling.Domain.Interfaces;
 using NotificationScheduling.Domain.Interfaces.Services;
 using NotificationScheduling.Domain.Models;
@@ -34,7 +36,7 @@ namespace NotificationScheduling.Tests
             var connectionString = "Server=.;Database=NotificationScheduling;Trusted_Connection=True;MultipleActiveResultSets=True;";
             services.AddDbContext<NotificationSchedulingContext>(options =>
                 {
-                    options.UseSqlServer(connectionString,sqlOptions => sqlOptions.CommandTimeout(120));
+                    options.UseSqlServer(connectionString, sqlOptions => sqlOptions.CommandTimeout(120));
                     options.UseLazyLoadingProxies();
                 }
             );
@@ -60,6 +62,8 @@ namespace NotificationScheduling.Tests
         [TestMethod]
         public async Task ShouldAddCompany_ReturnScheduleNotifications()
         {
+            await RemoveAllTestData();
+
             var companyModel = GetCompanyModelData();
 
             var result = await _service.CreateScheduleWithCompanyData(companyModel);
@@ -70,8 +74,24 @@ namespace NotificationScheduling.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(DuplicateEntryException))]
+        public async Task ShouldNotAddCompany_ReturnError()
+        {
+            await RemoveAllTestData();
+
+            var companyModel = GetCompanyModelData();
+
+            var firstResult = await _service.CreateScheduleWithCompanyData(companyModel);
+
+            var secondResult = await _service.CreateScheduleWithCompanyData(companyModel);
+            Assert.Fail();
+        }
+
+        [TestMethod]
         public async Task ShouldGetCompanySchedules_ReturnScheduleNotifications()
         {
+            await RemoveAllTestData();
+
             var companyModel = GetCompanyModelData();
 
             var result = await _service.GetAllCompanySchedules();
@@ -81,12 +101,21 @@ namespace NotificationScheduling.Tests
             Assert.IsTrue(result.Any());
         }
 
+        private async Task RemoveAllTestData()
+        {
+            var testCompanies = await _unitOfWork.Repository<Company>().GetAsync(o => o.Name == "Test");
+
+            if (testCompanies.Any())
+            {
+                await _unitOfWork.Repository<Company>().DeleteRangeAsync(testCompanies);
+            }
+        }
 
         private CompanyModel GetCompanyModelData()
         {
             return new CompanyModel()
             {
-                Id = new Guid(),
+                Id = new Guid("39b67f6b-1c16-4d5d-9040-12331ac2247e"),
                 Name = "Test",
                 CompanyNumber = "554466882",
                 CompanyType = "medium",

@@ -53,7 +53,7 @@ namespace NotificationScheduling.Services.Services
 
                 return CreateCompanyNotificationModel(companyEntity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await _unitOfWork.RollbackTransaction();
                 throw;

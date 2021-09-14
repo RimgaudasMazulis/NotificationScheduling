@@ -19,7 +19,7 @@ namespace NotificationScheduling.Domain.Interfaces.Repositories
         /// Get item of an entity based on predicate by asynchronous method
         /// </summary>
         /// <returns></returns>
-        Task<T> GetAsync(Expression<Func<T, bool>> predicate);
+        Task<IList<T>> GetAsync(Expression<Func<T, bool>> predicate);
         /// <summary>
         /// Fin one item of an entity synchronous method
         /// </summary>

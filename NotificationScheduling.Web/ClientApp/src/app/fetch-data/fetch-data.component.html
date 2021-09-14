@@ -1,57 +1,45 @@
-<link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+<h1>Company notification schedules</h1>
 
-<h1 id="tableLabel">Schedules</h1>
+<p aria-live="polite" *ngIf="!schedules"><em>Loading...</em></p>
 
-<p *ngIf="!schedules"><em>Loading...</em></p>
 <div class="container">
   <div class="row">
-    <br />
-    <div class="col-md-12" *ngFor="let schedule of schedules">
-      <h4>{{schedule.companyId}}</h4>
+    <div class="col-md-12" *ngFor="let schedule of schedules; let i = index">
+      <span>CompanyId: {{schedule.companyId}}</span>
       <div class="progress">
-        <div class="goal no-color" *ng-class="" *ngFor="let notification of schedule.notifications">{{notification}}</div>
-        <div class="progress-bar" style="width: 70%;"></div>
+        <div *ngIf="schedule.notifications">
+          <div *ngFor="let notification of schedule.notifications; let j = index">
+            <div class="one primary-color" [ngStyle]="{'left': calculateStepWidth(schedule, j)}">
+              <div class="progress__indicator">
+                <i class="fa fa-check"></i>
+              </div>
+              <div class="progress__label">
+                {{notification}}
+              </div>
+            </div>
+          </div>
+          <div class="progress-bar" [ngStyle]="{'width': calculateProgressPositionWidth(schedule)}"></div>
+          <!--<mat-progress-bar mode="determinate" value="calculateProgressPositionWidth(schedule)"></mat-progress-bar>-->
+        </div>
       </div>
-      <hr/>
-
-      <!--<div class="progress">
-        <ul class="checkout-bar" *ngFor="let schedule of schedules; let i = index">
-          <h4>{{schedule.companyId}}</h4>
-          <li class="next" *ngFor="let notification of schedule.notifications; let j = index">{{notification}}</li>
-        </ul>
-      </div>-->
+      <br />
     </div>
   </div>
 </div>
 
-
-  <!--<div class="progress__bg"></div>
-
-  <template v-for="(step, index) in steps">
-    <div :class="stepClasses(index)">
-      <div class="progress__indicator">
-        <i class="fa fa-check"></i>
-      </div>
-      <div class="progress__label">
-        {{step.label}}
-      </div>
-    </div>
-  </template>-->
-  <!--<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Temp. (C)</th>
-        <th>Temp. (F)</th>
-        <th>Summary</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let forecast of forecasts">
-        <td>{{ forecast.date }}</td>
-        <td>{{ forecast.temperatureC }}</td>
-        <td>{{ forecast.temperatureF }}</td>
-        <td>{{ forecast.summary }}</td>
-      </tr>
-    </tbody>
-  </table>-->
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
+  <thead>
+  <tr>
+    <th>CompanyId</th>
+    <th>Notifications</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let schedule of schedules">
+      <td>{{schedule.companyId}}</td>
+      <td *ngIf="schedule.notifications">
+        <div *ngFor="let notification of schedule.notifications">{{notification}}</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
