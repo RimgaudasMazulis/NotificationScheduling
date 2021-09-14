@@ -21,16 +21,10 @@ export class FetchDataComponent {
   calculateStepWidth(schedule: Schedule, index: number) {
     if (schedule.notifications !== undefined) {
       if (schedule.notifications[index - 1] !== undefined) {
-        let firstNotification = schedule.notifications[index - 1];
-        let firstDate = this.convertStringToDate(firstNotification);
-
-        let secondNotification = schedule.notifications[index];
-        let secondDate = this.convertStringToDate(secondNotification);
-
         let minDate = this.getMinNotificationDate(schedule);
         let maxDate = this.getMaxNotificationDate(schedule);
 
-        let firstSecondDifferenceInDays = this.calculateDaysDistanceForTwoDates(firstDate, secondDate);
+        let firstSecondDifferenceInDays = this.calculateDaysDistanceForTwoNotifications(schedule, index -1, index);
         let minMaxDifferenceInDays = this.calculateDaysDistanceForTwoDates(minDate, maxDate);
 
         let width = Math.abs(firstSecondDifferenceInDays * 100 / minMaxDifferenceInDays);
@@ -39,10 +33,33 @@ export class FetchDataComponent {
 
         this.previousNotificationStepWidth = width;
 
-        return Math.floor(width) + "%";
+        if (this.previousNotificationStepWidth === 100) {
+          this.previousNotificationStepWidth = 0;
+        }
+
+        return Math.floor(width) - 5 + "%";
       }
     }
     return "0%";
+  }
+  
+  getDaysDifferenceTillNotification(schedule: Schedule, index: number) {
+    if (schedule.notifications !== undefined && schedule.notifications[index - 1] !== undefined) {
+     return this.calculateDaysDistanceForTwoNotifications(schedule, index - 1, index);
+    }
+
+    return null;
+  }
+
+  getClassColors(notification: string) {
+    if (notification !== undefined) {
+      let notificationDate = this.convertStringToDate(notification);
+
+      if (notificationDate.getTime() <= new Date(Date.now()).getTime()) {
+        return "one primary-color";
+      }
+      return "one no-color"; 
+    }
   }
 
   getMinNotificationDate(schedule: Schedule) {
@@ -86,6 +103,20 @@ export class FetchDataComponent {
   convertStringToDate(dateInString: string) {
     let parts = dateInString.split('/');
     return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+  }
+
+  calculateDaysDistanceForTwoNotifications(schedule: Schedule, index1: number, index2: number) {
+    if (schedule.notifications !== undefined) {
+      let firstNotification = schedule.notifications[index1];
+      let firstDate = this.convertStringToDate(firstNotification);
+
+      let secondNotification = schedule.notifications[index2];
+      let secondDate = this.convertStringToDate(secondNotification);
+
+      return this.calculateDaysDistanceForTwoDates(firstDate, secondDate);
+    }
+
+    return 0;
   }
 
   calculateDaysDistanceForTwoDates(date1, date2) {

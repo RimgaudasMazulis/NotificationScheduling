@@ -1,38 +1,31 @@
-<h1>Company notification schedules</h1>
-
+<h2>Company notification schedules</h2>
 <p aria-live="polite" *ngIf="!schedules"><em>Loading...</em></p>
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-12" *ngFor="let schedule of schedules; let i = index">
-      <span>CompanyId: {{schedule.companyId}}</span>
-      <div class="progress">
-        <div *ngIf="schedule.notifications">
-          <div *ngFor="let notification of schedule.notifications; let j = index">
-            <div class="one primary-color" [ngStyle]="{'left': calculateStepWidth(schedule, j)}">
-              <div class="progress__indicator">
-                <i class="fa fa-check"></i>
-              </div>
-              <div class="progress__label">
-                {{notification}}
-              </div>
+  <div class="row" *ngFor="let schedule of schedules">
+    <div class="col-md-12">
+      <p aria-live="polite"><em>CompanyId: {{schedule.companyId}}</em></p>
+      <div class="progress" *ngIf="schedule.notifications">
+        <div *ngFor="let notification of schedule.notifications; let j = index">
+          <div class="{{getClassColors(notification)}}" [ngStyle]="{'left': calculateStepWidth(schedule, j)}">
+            <div class="progress__label">
+              <span>{{notification}}</span>
             </div>
           </div>
-          <div class="progress-bar" [ngStyle]="{'width': calculateProgressPositionWidth(schedule)}"></div>
-          <!--<mat-progress-bar mode="determinate" value="calculateProgressPositionWidth(schedule)"></mat-progress-bar>-->
         </div>
+        <div class="progress-bar" [ngStyle]="{'width': calculateProgressPositionWidth(schedule)}"></div>
       </div>
-      <br />
+      <p aria-live="polite" *ngIf="!schedule.notifications"><em>Has no notifications</em></p>
     </div>
   </div>
 </div>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
   <thead>
-  <tr>
-    <th>CompanyId</th>
-    <th>Notifications</th>
-  </tr>
+    <tr>
+      <th>CompanyId</th>
+      <th>Notifications</th>
+    </tr>
   </thead>
   <tbody>
     <tr *ngFor="let schedule of schedules">

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NotificationScheduling.Domain.Interfaces.Repositories;
-using NotificationScheduling.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -119,8 +119,7 @@ namespace NotificationScheduling.Tests
                 Name = "Test",
                 CompanyNumber = "554466882",
                 CompanyType = "medium",
-                Market = "Sweden",
-                CreatedAt = DateTime.Now
+                Market = "Sweden"
             };
         }
     }

@@ -12,6 +12,7 @@ namespace NotificationScheduling.Domain.Models
         public string Name { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid company number")]
         public string CompanyNumber { get; set; }
 
         [Required]
@@ -19,8 +20,5 @@ namespace NotificationScheduling.Domain.Models
 
         [Required]
         public string Market { get; set; }
-
-        [DataType(DataType.Date)]
-        public DateTime CreatedAt { get; set; }
     }
 }

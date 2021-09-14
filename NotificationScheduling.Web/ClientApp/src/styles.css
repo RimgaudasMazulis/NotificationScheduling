@@ -1,36 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.row {
+  margin-bottom: 70px;
 }
 
-code {
-  color: #e01a76;
+p {
+  margin-bottom: 30px;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/*PROGRESS_BAR*/
 
 .one {
   position: absolute;
-  margin-top: -10px;
+  margin-top: -15px;
   z-index: 1;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   border-radius: 25px;
 }
 
-
 .primary-color {
-  background-color: #4989bd;
+  background-color: #007bff;
 }
 
-.success-color {
-  background-color: #5cb85c;
+.no-color {
+  background-color: whitesmoke;
+}
+
+.progress__label {
+  padding-top: 60px;
+  font-weight: 600;
 }

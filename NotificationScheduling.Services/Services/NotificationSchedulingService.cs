@@ -66,7 +66,7 @@ namespace NotificationScheduling.Services.Services
                 return value.Select(CreateCompanyNotificationModel);
             }
 
-            var companySchedules = await _unitOfWork.Repository<Company>().GetAllCompanySchedules();
+            var companySchedules = await _unitOfWork.Repository<Company>().GetAllCompanySchedulesAsync();
             _cache.Set(CacheConstants.SchedulesCacheName, companySchedules, DateTimeOffset.Now.AddMinutes(AppSettings.CacheTimeoutInMinutes));
 
             return companySchedules.Select(CreateCompanyNotificationModel);

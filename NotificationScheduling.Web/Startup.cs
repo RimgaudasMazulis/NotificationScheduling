@@ -23,20 +23,17 @@ namespace NotificationScheduling.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddControllersWithViews();
             services.AddMemoryCache();
-            //services.Configure<AppSettings>(Configuration.GetSection("AppSettings"), options => options.BindNonPublicProperties = true);
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NotificationScheduling.Web", Version = "v1" });
             });
 
-            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -46,11 +43,8 @@ namespace NotificationScheduling.Web
                 .AddServices();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, NotificationSchedulingContext context)
         {
-            //context.Database.Migrate();
-
             app.UseSwagger(c =>
             {
                 c.SerializeAsV2 = true;
@@ -70,7 +64,6 @@ namespace NotificationScheduling.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -100,9 +93,6 @@ namespace NotificationScheduling.Web
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
@@ -111,22 +101,7 @@ namespace NotificationScheduling.Web
                 }
             });
 
-            //DbInitializer: (Seed method)
             DbInitializer.Initialize(context);
         }
-
-        //private IConfiguration InitConfiguration(IWebHostEnvironment env)
-        //{
-        //    // Config the app to read values from appsettings base on current environment value.
-        //    var configuration = new ConfigurationBuilder()
-        //        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-        //        .AddJsonFile("appsettings.json", false, true)
-        //        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
-        //        .AddEnvironmentVariables().Build();
-        //    //
-        //    // Map AppSettings section in appsettings.json file value to AppSetting model
-        //    configuration.GetSection("AppSettings").Get<AppSettings>(options => options.BindNonPublicProperties = true);
-        //    return configuration;
-        //}
     }
 }

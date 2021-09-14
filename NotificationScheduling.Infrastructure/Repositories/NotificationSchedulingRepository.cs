@@ -8,7 +8,7 @@ namespace NotificationScheduling.Infrastructure.Repositories
 {
     public static class NotificationSchedulingRepository
     {
-        public static async Task<IEnumerable<Company>> GetAllCompanySchedules(this IRepository<Company> repository)
+        public static async Task<IEnumerable<Company>> GetAllCompanySchedulesAsync(this IRepository<Company> repository)
         {
             return await repository.Entities.Include("Schedule").ToListAsync();
         }

@@ -118,13 +118,7 @@ namespace NotificationScheduling.Infrastructure.Extensions
 			return repository.Entities.Select(selector);
 		}
 
-		//public static DbCommand LoadStoredProc<T>(this IRepository<T> repository, string storedProcName)
-		//	where T : class
-		//{
-		//	return repository.DbContext.LoadStoredProc(storedProcName);
-		//}
-
-		public static DbCommand LoadCommand<T>(this IRepository<T> repository, string storedProcName)
+        public static DbCommand LoadCommand<T>(this IRepository<T> repository, string storedProcName)
 			where T : class
 		{
 			var conn = repository.DbContext.Database.GetDbConnection();

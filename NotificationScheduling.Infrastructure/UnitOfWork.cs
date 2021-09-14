@@ -43,12 +43,6 @@ namespace NotificationScheduling.Infrastructure
 
         public async Task CommitTransaction()
         {
-            /*
-             do not open transaction here, because if during the request
-             nothing was changed(only select queries were run), we don't
-             want to open and commit an empty transaction -calling SaveChanges()
-             on _transactionProvider will not send any sql to database in such case
-            */
             await DbContext.SaveChangesAsync();
 
             if (_transaction == null) return;
@@ -73,8 +67,7 @@ namespace NotificationScheduling.Infrastructure
         {
             if (DbContext == null)
                 return;
-            //
-            // Close connection
+
             if (_transaction != null && DbContext.Database.GetDbConnection().State == ConnectionState.Open)
             {
                 DbContext.Database.GetDbConnection().Close();

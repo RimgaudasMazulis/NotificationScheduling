@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["NotificationScheduling.WebApi/NotificationScheduling.WebApi.csproj", "NotificationScheduling.WebApi/"]
-RUN dotnet restore "NotificationScheduling.WebApi/NotificationScheduling.WebApi.csproj"
+COPY ["NotificationScheduling.Web/NotificationScheduling.Web.csproj", "NotificationScheduling.Web/"]
+RUN dotnet restore "NotificationScheduling.Web/NotificationScheduling.Web.csproj"
 COPY . .
-WORKDIR "/src/NotificationScheduling.WebApi"
-RUN dotnet build "NotificationScheduling.WebApi.csproj" -c Release -o /app/build
+WORKDIR "/src/NotificationScheduling.Web"
+RUN dotnet build "NotificationScheduling.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "NotificationScheduling.WebApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "NotificationScheduling.Web.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "NotificationScheduling.WebApi.dll"]
+ENTRYPOINT ["dotnet", "NotificationScheduling.Web.dll"]
