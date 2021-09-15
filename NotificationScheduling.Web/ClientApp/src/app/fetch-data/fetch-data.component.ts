@@ -42,10 +42,10 @@ export class FetchDataComponent {
     }
     return "0%";
   }
-  
-  getDaysDifferenceTillNotification(schedule: Schedule, index: number) {
+
+  getDaysDifferenceFromPreviousNotificationTillNotification(schedule: Schedule, index: number) {
     if (schedule.notifications !== undefined && schedule.notifications[index - 1] !== undefined) {
-     return this.calculateDaysDistanceForTwoNotifications(schedule, index - 1, index);
+     return this.calculateDaysDistanceForTwoNotifications(schedule, index - 1, index) + " d.";
     }
 
     return null;
@@ -119,6 +119,21 @@ export class FetchDataComponent {
     return 0;
   }
 
+  calculateDaysDistanceFromNowTillLastNotification(schedule: Schedule) {
+    if (schedule.notifications !== undefined) {
+      let lastNotificationDate = this.getMaxNotificationDate(schedule);
+      let days = this.calculateDaysDistanceForTwoDates(new Date(Date.now()), lastNotificationDate);
+
+      if (days < 0) {
+        return 0;
+      }
+
+      return Math.floor(days);
+    }
+
+    return 0;
+  }
+  
   calculateDaysDistanceForTwoDates(date1, date2) {
     var Difference_In_Time = date2.getTime() - date1.getTime();
     return Difference_In_Time / (1000 * 3600 * 24);

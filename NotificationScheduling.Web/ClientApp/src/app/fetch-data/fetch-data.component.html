@@ -2,12 +2,14 @@
 <p aria-live="polite" *ngIf="!schedules"><em>Loading...</em></p>
 
 <div class="container">
-  <div class="row" *ngFor="let schedule of schedules">
-    <div class="col-md-12">
-      <p aria-live="polite"><em>CompanyId: {{schedule.companyId}}</em></p>
+  <div class="row" *ngFor="let schedule of schedules; let i = index">
+    <div class="col-md-12 section">
+      <span aria-live="polite"><em>CompanyId: {{schedule.companyId}}</em></span>
+      <p aria-live="polite" *ngIf="schedule.notifications"><em>Days till last notification: {{calculateDaysDistanceFromNowTillLastNotification(schedule)}}</em></p>
       <div class="progress" *ngIf="schedule.notifications">
         <div *ngFor="let notification of schedule.notifications; let j = index">
           <div class="{{getClassColors(notification)}}" [ngStyle]="{'left': calculateStepWidth(schedule, j)}">
+            <div class="days-diff">{{getDaysDifferenceFromPreviousNotificationTillNotification(schedule, j)}}</div>
             <div class="progress__label">
               <span>{{notification}}</span>
             </div>

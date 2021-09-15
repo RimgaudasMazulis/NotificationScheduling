@@ -1,12 +1,13 @@
 
-.row {
-  margin-bottom: 70px;
+.section {
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 p {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
-
 
 .one {
   position: absolute;
@@ -27,4 +28,9 @@ p {
 
 .progress__label {
   padding-top: 60px;
+}
+
+.days-diff {
+  position: absolute;
+  margin-top: -15px;
 }
